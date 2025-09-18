@@ -19,9 +19,9 @@ pipeline {
   post {
     always {
       emailext(
-        from: 'piseypich45@gmail.com',          // match your authenticated Gmail
+        from: 'piseypich45@gmail.com',
         to: "${env.RECIPIENTS}",
-        recipientProviders: [],                  // use only the explicit recipients
+        recipientProviders: [],
         subject: "Jenkins ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
         mimeType: 'text/plain',
         body: "Build URL: ${env.BUILD_URL}",

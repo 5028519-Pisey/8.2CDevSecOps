@@ -1,6 +1,6 @@
 pipeline {
   agent any
-  options { timestamps() }   
+  options { timestamps() }
 
   environment {
     RECIPIENTS = 'piseypich45@gmail.com'
@@ -19,14 +19,20 @@ pipeline {
   post {
     always {
       emailext(
+        from: 'piseypich45@gmail.com',         
         to: "${env.RECIPIENTS}",
-        recipientProviders: [],   // use ONLY the explicit recipient(s)
+        recipientProviders: [],                  
         subject: "Jenkins ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
         mimeType: 'text/plain',
         body: "Build URL: ${env.BUILD_URL}",
         attachLog: true,
         compressLog: true,
-        attachmentsPattern: 'report.txt'
+        attachmentsPattern: 'report.txt',
+        presendScript: '''
+          // show final recipients and From in the console for debugging
+          println "DEBUG From=" + msg.getFrom()[0]
+          println "DEBUG To=" + Arrays.toString(msg.getAllRecipients())
+        '''
       )
     }
   }

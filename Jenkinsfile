@@ -53,7 +53,7 @@ pipeline {
     success {
       emailext(
         // <<< EDIT ME >>> your email address
-        to: '5028519@learning.deakincollege.edu.au',
+        to: 'piseypich45@gmail.com',
         subject: "✅ SUCCESS: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
         body: """Build succeeded.
 
@@ -67,7 +67,7 @@ The full console log is attached for reference.""",
     }
     failure {
       emailext(
-        to: '5028519@learning.deakincollege.edu.au',
+        to: 'piseypich45@gmail.com',
         subject: "❌ FAILURE: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
         body: """Build failed.
 

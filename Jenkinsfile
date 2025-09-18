@@ -19,20 +19,15 @@ pipeline {
   post {
     always {
       emailext(
-        from: 'piseypich45@gmail.com',         
+        from: 'piseypich45@gmail.com',          // match your authenticated Gmail
         to: "${env.RECIPIENTS}",
-        recipientProviders: [],                  
+        recipientProviders: [],                  // use only the explicit recipients
         subject: "Jenkins ${env.JOB_NAME} #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
         mimeType: 'text/plain',
         body: "Build URL: ${env.BUILD_URL}",
         attachLog: true,
         compressLog: true,
-        attachmentsPattern: 'report.txt',
-        presendScript: '''
-          // show final recipients and From in the console for debugging
-          println "DEBUG From=" + msg.getFrom()[0]
-          println "DEBUG To=" + Arrays.toString(msg.getAllRecipients())
-        '''
+        attachmentsPattern: 'report.txt'
       )
     }
   }
